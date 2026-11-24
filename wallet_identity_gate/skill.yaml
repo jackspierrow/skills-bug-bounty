@@ -1,0 +1,22 @@
+name: wallet_identity_gate
+title: Wallet identity gate before on-chain work
+description: Verify the currently connected wallet matches the job target wallet before any signed on-chain step and pause structurally blocked retries instead of repeating them.
+category: Finance
+include_in_prompt: true
+skill_improvement:
+  managed: true
+  status: active
+  evidence_handles:
+  - assistant-msg-a8e0a66d
+  - bc3b311d-36b7-4e68-a382-f9b4073e5888
+  - assistant-msg-74aa2c93
+  - 110ef7f6-db88-432b-b0f6-63a9e4b44535
+  measurement:
+    proxy_metric_id: objective_success_rate
+    success_criterion: In the 30 days after install, no scheduled on-chain job repeats an identical signer-mismatch error across more than two consecutive runs without a pause, and any wallet-mismatch case in the window is surfaced once with the live wallet and the target wallet named.
+    window_days: 30
+  needs_review: false
+  rationale: The AgentsEstates sign-in retry failed identically overnight every 30 minutes with an EIP712 signer address mismatch because the executor was bound to rayden.ai while the job targeted zorin.ai, producing no order, mint, transaction or gas, and the 2026-11-02 follow-up at assistant-msg-a8e0a66d stated continuing the retry as-is cannot succeed and the choice is switch wallets and re-pair or pause the retry; the failed sign-in retry run bc3b311d-36b7-4e68-a382-f9b4073e5888 is in the evidence window. The same wallet-confusion shape appeared in the Chip404 transfer, where the wrong wallets were checked first and reported as holding nothing before assistant-msg-74aa2c93 corrected the holding wallet. Skill search found no existing wallet-identity skill, and the existing time_boxed_onchain_tasks skill covers session validity and polling but not a character-by-character live-versus-target address match or a stop rule for a structurally blocked retry, so this new skill fills that gap without duplicating it.
+  review_after: 2026-12-02T08:57:25.498184+00:00
+  reviewed_at: 2026-11-02T08:57:25.498184+00:00
+  run_id: sirun_ae6002f12c3840edb32da0605cbd8164

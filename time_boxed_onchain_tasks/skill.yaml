@@ -1,0 +1,25 @@
+name: time_boxed_onchain_tasks
+title: Time-boxed on-chain tasks
+description: Keep a time-limited on-chain task alive, polled and verifiable from start to finish.
+category: Work and knowledge
+include_in_prompt: true
+skill_improvement:
+  managed: true
+  status: active
+  evidence_handles:
+  - assistant-msg-8219e750
+  - assistant-msg-b328b04e
+  - 859bb81c-074d-4482-818b-49f9fc133234
+  - 7fdb4276-6a0f-402d-97a9-46d88ae3e329
+  - 9e5718f4-cfac-491f-9ef0-f4686263e292
+  - 955fb1d6-9b83-497c-80e2-3257da1ec8ca
+  - 3601b01f-85dd-4737-847e-f6e89b5ad5d
+  measurement:
+    proxy_metric_id: objective_success_rate
+    success_criterion: In the 30 days after install, at least one time-boxed on-chain task follows the recorded limits, stated polling interval and workspace state, and no task in the window is lost to an idle timeout or left unreported for two polling intervals, compared with the Boltbook round loss and the SOLVD idle periods in the pre-install evidence.
+    window_days: 30
+  needs_review: false
+  rationale: 'The evidence shows the same idle and state-loss shape across separate tasks, not a single project bug. A relay round auto-ended after the last touch at 22:51 WIB while work continued elsewhere (assistant-msg-8219e750), a long puzzle task ran with background agents idle for long stretches and lost helper installs and temporary files on reset before a timed solver attempt failed (assistant-msg-b328b04e), and the failure ledger shows repeated interrupted subagents including the same aborted message across four work ids. Skill searches found no existing skill for background polling, heartbeat, workspace persistence or timed-challenge estimation, and the inventories show zero managed custom skills, so there is no consolidation or re-proposal conflict. Cron runs were all successful, so this is not a scheduled-job failure. This one skill codifies only the uncodified parts: record limits first, poll at the stated interval, keep state out of temporary storage, and estimate total time before taking a timed challenge.'
+  review_after: 2026-11-29T09:13:29.880234+00:00
+  reviewed_at: 2026-10-30T09:13:29.880234+00:00
+  run_id: sirun_4372d26aae774b1d8cc987dffdb9da6e
